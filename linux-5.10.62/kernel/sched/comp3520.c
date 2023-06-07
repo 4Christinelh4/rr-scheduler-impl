@@ -41,12 +41,12 @@ static void helper(struct comp3520_rq *rq){
 
     printk("=================\n");
 
-    list_for_each_entry(se, my_head, list_node_for_this_entity){
+    list_for_each_entry(se, my_head, list_node_for_this_entity) {
 
         if (se != NULL){
             t = task_of(se);
 
-            if (t != NULL){
+            if (t != NULL) {
                 printk("[%d] %d\n", count, t->pid);
             }
         }
@@ -151,10 +151,11 @@ static void enqueue_task_comp3520(struct rq *rq, struct task_struct *p,
 
         comp3520_rq->nr_running++;
 
-        if (se->my_q) 
+        if (se->my_q) {
             comp3520_rq->h_nr_running += se->my_q->h_nr_running;
-        else 
+        } else {
             comp3520_rq->h_nr_running++;
+        }
 
         rq->nr_running++;
         flags = ENQUEUE_WAKEUP;
@@ -212,8 +213,9 @@ static bool yield_to_task_comp3520(struct rq *rq, struct task_struct *p)
     struct comp3520_rq *comp3520_rq = &rq->comp3520;
     struct sched_comp3520_entity *se = &p->comp3520_se;
 
-    if (!se->on_rq) 
+    if (!se->on_rq) {
         return false;
+    }
 
     yield_task_comp3520(rq); // gives up
     return true;
@@ -221,8 +223,7 @@ static bool yield_to_task_comp3520(struct rq *rq, struct task_struct *p)
 
 // if p ran long enough, preemption will happen
 static void check_preempt_curr_comp3520(struct rq *rq, struct task_struct *p,
-					int wake_flags)
-{
+					int wake_flags) {
 
 }
 
@@ -270,7 +271,7 @@ struct task_struct *pick_next_task_comp3520(struct rq *rq)
 {
 
     struct sched_comp3520_entity *get_task_from_entity = pick_next_entity(rq);
-    if (!get_task_from_entity){
+    if (!get_task_from_entity) {
         return NULL;
     }
 
@@ -491,9 +492,9 @@ const struct sched_class
 		.uclamp_enabled = 1,
 #endif
 
-	};
+};
 
-// TODO: Complete me
+
 void init_comp3520_rq(struct comp3520_rq *comp3520_rq)
 {
 	comp3520_rq->nr_running = 0;

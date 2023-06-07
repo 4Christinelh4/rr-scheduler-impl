@@ -1,6 +1,6 @@
 
 /*
-sched_entity for CFS scheduler (the RB tree)
+ * sched_entity for CFS scheduler (the RB tree)
  */
 struct sched_entity {
 	/* For load-balancing: */
